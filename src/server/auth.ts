@@ -73,6 +73,8 @@ export const authOptions: NextAuthOptions = {
           placeholder: "Enter your name",
         },
       },
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       async authorize(credentials, _req) {
         let isAuthenticated = false;
         const user = await prisma.users.findUnique({where: {email: credentials?.email}});
