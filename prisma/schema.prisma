@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["views"]
+}
+
+datasource db {
+  provider = "mysql"
+  // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+  // Further reading:
+  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+  url      = env("DATABASE_URL")
+}
+
+view users {
+  id             Int       @id @default(autoincrement()) @db.UnsignedInt
+  company        String?   @db.VarChar(255)
+  name           String?   @db.VarChar(255)
+  email          String?   @unique(map: "users_email_unique") @db.VarChar(255)
+  password       String    @default(dbgenerated("(password!)")) @db.VarChar(255)
+  custno         String?   @db.Char(16)
+  role           Int       @default(0) @db.TinyInt
+  active         Int       @default(0) @db.TinyInt
+  access_until   DateTime? @db.Timestamp(0)
+  remember_token String?   @db.VarChar(100)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+  is_admin       Boolean?  @default(false)
+  access         String?   @db.Text
+  phone          String?   @db.VarChar(100)
+  last_login     DateTime? @db.Timestamp(0)
+  logins         Int?      @default(0)
+  SL             String?   @db.Char(2)
+}
