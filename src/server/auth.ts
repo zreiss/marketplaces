@@ -63,14 +63,14 @@ export const authOptions: NextAuthOptions = {
         email: {
           label: "email",
           type: "text",
-          value: "ysall@zreiss.com",
+          value: "",
           placeholder: "Enter your email",
         },
         password: {
           label: "password",
           type: "password",
-          value: "zrFriedRice770",
-          placeholder: "Enter your name",
+          value: "",
+          placeholder: "Enter your password",
         },
       },
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
