@@ -1,3 +1,6 @@
+import {prisma} from "./db";
+import bcrypt from "bcryptjs";
+import {env} from "../env.mjs";
 import type {GetServerSidePropsContext} from "next";
 import {
   getServerSession,
@@ -5,9 +8,6 @@ import {
   type DefaultSession,
 } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import {env} from "../env.mjs";
-import {prisma} from "./db";
-import bcrypt from "bcryptjs";
 
 /**
  * Module augmentation for `next-auth` types.
