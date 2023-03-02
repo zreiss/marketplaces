@@ -7,16 +7,18 @@ const MarketplacesPage = () => {
     // const utils = api.useContext();
     const {data: sessionData} = useSession();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const {data: marketplaces, isLoading, error} = api.marketplaces.getAll.useQuery(
-        {},
-        {
-            enabled: sessionData?.user !== undefined,
-        }
-    );
+    const {data: marketplaces, isLoading, error} =
+        api.marketplaces
+            .getAll
+            .useQuery(
+                undefined,
+                {
+                    enabled: sessionData?.user !== undefined,
+                }
+            );
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error</div>;
-    // return <pre>{JSON.stringify(users, null, 2)}</pre>
+
     if (!marketplaces?.length) return (
         <>
             <div>No marketplaces</div>

@@ -7,33 +7,28 @@ import {
     Input,
     Button,
 } from "@chakra-ui/react";
-import {useSession} from "next-auth/react";
 
 const NewMarketplace = () => {
     // const utils = api.useContext();
-    const {data: sessionData} = useSession();
 
     const {
         handleSubmit,
         register,
-        formState: {errors, isSubmitting},
+        formState: {errors},
     } = useForm()
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     function onSubmit(values) {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                alert(JSON.stringify(values, null, 2))
-                resolve()
-            }, 3000)
-        })
+        // eslint-disable-next-line no-console
+        console.log(values)
     }
-
-    console.log("ERRORS", errors, !!(errors.name && errors.name.message));
 
     return (
         <>
+            {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
             <form className={"flex flex-col w-1/3"} onSubmit={handleSubmit(onSubmit)}>
-                <FormControl isInvalid={errors.name}>
+                <FormControl isInvalid={!!errors.name}>
                     <FormLabel htmlFor="name">Name</FormLabel>
                     <Input
                         id='name'
@@ -45,7 +40,7 @@ const NewMarketplace = () => {
                     </FormErrorMessage>
                 </FormControl>
 
-                <FormControl mt={3} isInvalid={errors.url}>
+                <FormControl mt={3} isInvalid={!!errors.url}>
                     <FormLabel htmlFor="url">Marketplace URL</FormLabel>
                     <Input
                         id='url'
@@ -57,7 +52,7 @@ const NewMarketplace = () => {
                     </FormErrorMessage>
                 </FormControl>
 
-                <FormControl mt={3} isInvalid={errors.image}>
+                <FormControl mt={3} isInvalid={!!errors.image}>
                     <FormLabel htmlFor="image">Image URL</FormLabel>
                     <Input
                         id='image'

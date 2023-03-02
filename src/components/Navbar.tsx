@@ -1,11 +1,8 @@
 import {
-    Box,
     Button,
     ButtonGroup,
-    Container,
     Flex,
     HStack,
-    useColorModeValue,
 } from '@chakra-ui/react'
 import * as React from 'react'
 import Link from "next/link";
@@ -17,7 +14,7 @@ export const Navbar = () => {
                 <ButtonGroup variant="link" spacing="8">
                     {[['Marketplaces', 'marketplaces'],].map((item) => (
                         <Button key={item[0]}>
-                            <Link href={item[1]}>{item[0]}</Link>
+                            <Link href={item[1] ?? ""}>{item[0]}</Link>
                         </Button>
                         ))}
                 </ButtonGroup>
