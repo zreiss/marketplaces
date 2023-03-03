@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {api} from "~/utils/api";
-import {Button} from "@chakra-ui/react";
 import {useSession} from "next-auth/react";
+import {Box, Button, Image, Text} from "@chakra-ui/react";
 
 const MarketplacesPage = () => {
     // const utils = api.useContext();
@@ -29,19 +29,22 @@ const MarketplacesPage = () => {
     )
     return (
         <>
-            <Button>
-                <Link href="/NewMarketplace" as="/new-marketplace">Create</Link>
-            </Button>
             <div>
-                <h1>Marketplaces</h1>
+                <Text mt={4} fontSize={"4xl"}>Marketplaces</Text>
                 {marketplaces.map((marketplace) => (
-                    <div className={"flex justify-between"}
+                    <div className={"h-16 flex items-center hover:bg-gray-200"}
                          key={marketplace.id}
                     >
-                        <h2>{marketplace.name}</h2>
+                        <Image src={marketplace.image_url} alt='Dan Abramov'/>
+                        <Text ml={4} fontSize={"2xl"}>{marketplace.name}</Text>
                     </div>
                 ))}
             </div>
+            <Box position={"fixed"} sx={{bottom:75, right:125}}>
+                <Button>
+                    <Link href="/NewMarketplace" as="/new-marketplace">Create</Link>
+                </Button>
+            </Box>
         </>
     );
 };
