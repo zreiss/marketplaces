@@ -35,7 +35,7 @@ const MarketplacesPage = () => {
                     <div className={"h-16 flex items-center hover:bg-gray-200"}
                          key={marketplace.id}
                     >
-                        <Image src={marketplace.image_url} alt='Dan Abramov'/>
+                        <Image src={marketplace.image_url} alt={marketplace.name}/>
                         <Text ml={4} fontSize={"2xl"}>{marketplace.name}</Text>
                     </div>
                 ))}
