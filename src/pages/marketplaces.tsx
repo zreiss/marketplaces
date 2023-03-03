@@ -30,7 +30,7 @@ const MarketplacesPage = () => {
     return (
         <>
             <Button>
-                <Link href={"/new-marketplace"}>Create</Link>
+                <Link href="/NewMarketplace" as="/new-marketplace">Create</Link>
             </Button>
             <div>
                 <h1>Marketplaces</h1>

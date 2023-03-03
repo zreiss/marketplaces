@@ -7,9 +7,21 @@ import {
     Input,
     Button,
 } from "@chakra-ui/react";
+import {useSession} from "next-auth/react";
+import {api} from "~/utils/api";
+import { useRouter } from "next/router";
 
 const NewMarketplace = () => {
-    // const utils = api.useContext();
+    const router = useRouter()
+    const utils = api.useContext();
+    const {data: sessionData} = useSession();
+
+    const createMarketplace = api.marketplaces.create.useMutation({
+        onSuccess: () => {
+            void utils.marketplaces.getAll.invalidate();
+            void router.push("/marketplaces");
+        },
+    });
 
     const {
         handleSubmit,
@@ -22,12 +34,15 @@ const NewMarketplace = () => {
     function onSubmit(values) {
         // eslint-disable-next-line no-console
         console.log(values)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        createMarketplace.mutate(values)
     }
 
     return (
         <>
+            
             {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-            <form className={"flex flex-col w-1/3"} onSubmit={handleSubmit(onSubmit)}>
+            <form className={"flex flex-col w-1/3 mt-4"} onSubmit={handleSubmit(onSubmit)}>
                 <FormControl isInvalid={!!errors.name}>
                     <FormLabel htmlFor="name">Name</FormLabel>
                     <Input
@@ -37,6 +52,18 @@ const NewMarketplace = () => {
                     />
                     <FormErrorMessage>
                         Please enter a name
+                    </FormErrorMessage>
+                </FormControl>
+
+                <FormControl mt={3} isInvalid={!!errors.image}>
+                    <FormLabel htmlFor="slug">Slug</FormLabel>
+                    <Input
+                        id='slug'
+                        placeholder='Enter a url to the marketplace slug'
+                        {...register('slug', {required: true})}
+                    />
+                    <FormErrorMessage>
+                        Please enter a Slug
                     </FormErrorMessage>
                 </FormControl>
 
@@ -55,9 +82,9 @@ const NewMarketplace = () => {
                 <FormControl mt={3} isInvalid={!!errors.image}>
                     <FormLabel htmlFor="image">Image URL</FormLabel>
                     <Input
-                        id='image'
-                        placeholder='image'
-                        {...register('image', {required: true})}
+                        id='image_url'
+                        placeholder='Enter a url to the marketplace image'
+                        {...register('image_url', {required: false})}
                     />
                     <FormErrorMessage>
                         Please enter a image url
