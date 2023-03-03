@@ -2,7 +2,6 @@ import React from "react";
 import {api} from "~/utils/api";
 import {useRouter} from "next/router";
 import {useForm } from "react-hook-form";
-import {useSession} from "next-auth/react";
 
 import {
     Input,
@@ -17,16 +16,17 @@ import {ExternalLinkIcon} from "@chakra-ui/icons";
 const NewMarketplace = () => {
     const router = useRouter()
     const utils = api.useContext();
-    const {data: sessionData} = useSession();
     const {
         handleSubmit,
         register,
         formState: {errors},
-        getValues,
         watch,
 
     } = useForm()
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const marketName = watch("name");
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const imageUrl = watch("image_url");
 
     const createMarketplace = api.marketplaces.create.useMutation({
@@ -92,6 +92,7 @@ const NewMarketplace = () => {
                     <FormLabel htmlFor="image">
                         Image URL
                         {marketName && (
+                            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                             <Link ml={2} mt={0} href={`https://icons8.com/icons/set/${marketName}`} isExternal>
                                 <ExternalLinkIcon mx='2px'/>
                             </Link>
@@ -107,7 +108,8 @@ const NewMarketplace = () => {
                     </FormErrorMessage>
                 </FormControl>
                 <div className="flex justify-center">
-                {!!imageUrl && (
+                {imageUrl && (
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                     <Image mt={4} w={100} src={imageUrl} alt={marketName}/>
                 )}
                 </div>
