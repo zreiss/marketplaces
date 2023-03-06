@@ -22,7 +22,7 @@ export const Navbar = () => {
                         ['Products', 'products'],
                     ].map((item) => (
                         <Button key={item[0]}>
-                            <Link href={item[1] ?? ""}>{item[0]}</Link>
+                            <Link href={`/${item[1] ?? ""}`}>{item[0]}</Link>
                         </Button>
                     ))}
                 </ButtonGroup>

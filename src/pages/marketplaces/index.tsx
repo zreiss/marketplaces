@@ -2,9 +2,11 @@ import Link from "next/link";
 import {api} from "~/utils/api";
 import {getSession, useSession} from "next-auth/react";
 import {Box, Button, Image, Text} from "@chakra-ui/react";
+import {useRouter} from "next/router";
 
 const MarketplacesPage = () => {
     // const utils = api.useContext();
+    const router = useRouter();
     const {data: sessionData} = useSession();
 
     const {data: marketplaces, isLoading, error} =
@@ -19,11 +21,16 @@ const MarketplacesPage = () => {
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error</div>;
 
+    const handleMarketplaceClick = (id: number) => {
+        // navigate to the dynamic route for the selected marketplace
+        void router.push(`/marketplaces/${id}`);
+    };
+
     if (!marketplaces?.length) return (
         <>
             <div>No marketplaces</div>
             <Button>
-                <Link href="/NewMarketplace" as="/new-marketplace">Create</Link>
+                <Link href="/src/pages/NewMarketplace" as="/new-marketplace">Create</Link>
             </Button>
         </>
     )
@@ -32,17 +39,19 @@ const MarketplacesPage = () => {
             <div>
                 <Text mt={4} fontSize={"4xl"}>Marketplaces</Text>
                 {marketplaces.map((marketplace) => (
-                    <div className={"h-16 flex items-center hover:bg-gray-200"}
-                         key={marketplace.id}
+                    <div
+                        key={marketplace.id}
+                        onClick={() => handleMarketplaceClick(marketplace.id)}
+                        className={"h-16 p-4 flex items-center hover:bg-gray-200 rounded"}
                     >
                         <Image src={marketplace.image_url} alt={marketplace.name}/>
                         <Text ml={4} fontSize={"2xl"}>{marketplace.name}</Text>
                     </div>
                 ))}
             </div>
-            <Box position={"fixed"} sx={{bottom:75, right:125}}>
+            <Box position={"fixed"} sx={{bottom: 75, right: 125}}>
                 <Button>
-                    <Link href="/NewMarketplace" as="/new-marketplace">Create</Link>
+                    <Link href="/src/pages/NewMarketplace" as="/new-marketplace">Create</Link>
                 </Button>
             </Box>
         </>
@@ -65,6 +74,6 @@ export async function getServerSideProps(context: any) {
     }
 
     return {
-        props: { session }
+        props: {session}
     }
 }
