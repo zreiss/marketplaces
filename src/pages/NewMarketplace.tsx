@@ -2,7 +2,8 @@ import React from "react";
 import {api} from "~/utils/api";
 import {useRouter} from "next/router";
 import {useForm } from "react-hook-form";
-
+import {getSession} from "next-auth/react";
+import {ExternalLinkIcon} from "@chakra-ui/icons";
 import {
     Input,
     Image,
@@ -11,8 +12,6 @@ import {
     Button, Text,
     FormErrorMessage, Link,
 } from "@chakra-ui/react";
-import {ExternalLinkIcon} from "@chakra-ui/icons";
-import {getSession} from "next-auth/react";
 
 const NewMarketplace = () => {
     const router = useRouter()
@@ -22,7 +21,6 @@ const NewMarketplace = () => {
         register,
         formState: {errors},
         watch,
-
     } = useForm()
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const marketName = watch("name");
@@ -40,8 +38,6 @@ const NewMarketplace = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     function onSubmit(values) {
-        // eslint-disable-next-line no-console
-        console.log(values)
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         createMarketplace.mutate(values)
     }
