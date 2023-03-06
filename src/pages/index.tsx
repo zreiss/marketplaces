@@ -25,15 +25,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const session = await getSession(context)
     const users = [
-        { user: 'moshiach', password: 'now' },
-        { user: 'yechi', password: 'hamelech' },
+        { user: 'reiss', password: ')&*(&^$%#)#!marketplace' },
     ]
     const basicAuthCheck = initializeBasicAuth({
         users: users
     })
     const {req, res} = context
 
-    await basicAuthCheck(req, res)
+    basicAuthCheck(req, res)
 
     if (!session) {
         return {
