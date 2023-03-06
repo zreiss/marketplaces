@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {api} from "~/utils/api";
-import {useSession} from "next-auth/react";
+import {getSession, useSession} from "next-auth/react";
 import {Box, Button, Image, Text} from "@chakra-ui/react";
 
 const MarketplacesPage = () => {
@@ -50,3 +50,21 @@ const MarketplacesPage = () => {
 };
 
 export default MarketplacesPage
+
+export async function getServerSideProps(context: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const session = await getSession(context)
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: '/api/auth/signin',
+                permanent: false,
+            },
+        }
+    }
+
+    return {
+        props: { session }
+    }
+}

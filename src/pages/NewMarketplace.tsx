@@ -12,6 +12,7 @@ import {
     FormErrorMessage, Link,
 } from "@chakra-ui/react";
 import {ExternalLinkIcon} from "@chakra-ui/icons";
+import {getSession} from "next-auth/react";
 
 const NewMarketplace = () => {
     const router = useRouter()
@@ -123,3 +124,21 @@ const NewMarketplace = () => {
 };
 
 export default NewMarketplace
+
+export async function getServerSideProps(context: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const session = await getSession(context)
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: '/api/auth/signin',
+                permanent: false,
+            },
+        }
+    }
+
+    return {
+        props: { session }
+    }
+}
