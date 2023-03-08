@@ -1,5 +1,4 @@
 import {z} from "zod";
-
 import {
     createTRPCRouter,
     publicProcedure,
@@ -7,12 +6,14 @@ import {
 } from "~/server/api/trpc";
 
 export const marketplacesRouter = createTRPCRouter({
-    hello: publicProcedure
-        .input(z.object({text: z.string()}))
-        .query(({input}) => {
-            return {
-                greeting: `Hello ${input.text}`,
-            };
+    get: protectedProcedure
+        .input(z.object({id: z.number()}))
+        .query(({ctx, input}) => {
+            return ctx.prisma.marketplaces.findUnique({
+                where: {
+                    id: input.id,
+                },
+            });
         }),
 
     getAll: publicProcedure.query(({ctx}) => {

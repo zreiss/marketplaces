@@ -1,11 +1,10 @@
 import Link from "next/link";
 import {api} from "~/utils/api";
+import {useRouter} from "next/router";
 import {getSession, useSession} from "next-auth/react";
 import {Box, Button, Image, Text} from "@chakra-ui/react";
-import {useRouter} from "next/router";
 
 const MarketplacesPage = () => {
-    // const utils = api.useContext();
     const router = useRouter();
     const {data: sessionData} = useSession();
 
@@ -18,8 +17,8 @@ const MarketplacesPage = () => {
                     enabled: sessionData?.user !== undefined,
                 }
             );
-    if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error</div>;
+    if (isLoading) return <div>Loading...</div>;
 
     const handleMarketplaceClick = (id: number) => {
         // navigate to the dynamic route for the selected marketplace

@@ -1,9 +1,7 @@
 import Head from "next/head";
-
 import {type NextPage} from "next";
 import {getSession} from "next-auth/react";
 import { GetServerSidePropsContext } from 'next';
-import initializeBasicAuth from 'nextjs-basic-auth'
 const Home: NextPage = () => {
     return (
         <>

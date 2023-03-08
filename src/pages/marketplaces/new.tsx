@@ -1,5 +1,5 @@
-import { NextPage } from 'next';
 import Link from 'next/link';
+import { NextPage } from 'next';
 
 const NewMarketplacePage: NextPage = () => {
     // handle form submission and create the new marketplace
@@ -12,7 +12,7 @@ const NewMarketplacePage: NextPage = () => {
             {/* ... */}
             <button type="submit">Create</button>
             <Link href="/marketplaces">
-                <a>Cancel</a>
+                Cancel
             </Link>
         </>
     );
